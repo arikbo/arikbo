@@ -1,8 +1,15 @@
 let exercises = [];
 
 function generateExercises() {
+    console.log("פונקציה generateExercises הופעלה"); // בדיקה אם הפונקציה בכלל רצה
     const container = document.getElementById("exercises");
-    container.innerHTML = "";
+
+    if (!container) {
+        console.error("❌ שגיאה: האלמנט exercises לא נמצא!");
+        return;
+    }
+
+    container.innerHTML = ""; // ריקון הקודם
     exercises = [];
 
     for (let i = 0; i < 3; i++) {
@@ -32,6 +39,7 @@ function generateExercises() {
             </div>
         `;
     }
+    console.log("✅ שלוש משוואות נוצרו בהצלחה!");
 }
 
 function checkAnswers() {
@@ -62,4 +70,7 @@ function showAnswers() {
 }
 
 // הפעלה רק לאחר שהדף נטען במלואו
-document.addEventListener("DOMContentLoaded", generateExercises);
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("✅ הדף נטען בהצלחה!");
+    generateExercises();
+});
