@@ -60,4 +60,5 @@ function showAnswers() {
         results[i].style.color = "blue";
     }
 }
-document.addEventListener("DOMContentLoaded", generateExercises);
+
+window.onload = generateExercises;
