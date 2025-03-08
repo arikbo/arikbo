@@ -1,24 +1,20 @@
 let exercises = [];
 
 function generateExercises() {
-    console.log("פונקציה generateExercises הופעלה"); // בדיקה אם הפונקציה בכלל רצה
     const container = document.getElementById("exercises");
-
-    if (!container) {
-        console.error("❌ שגיאה: האלמנט exercises לא נמצא!");
-        return;
-    }
-
-    container.innerHTML = ""; // ריקון הקודם
+    container.innerHTML = "";
     exercises = [];
 
     for (let i = 0; i < 3; i++) {
-        let a = Math.floor(Math.random() * 10) + 1;
-        let b = Math.floor(Math.random() * 20) - 10;
-        let x = Math.floor(Math.random() * 10) - 5;
-        let c = a * x + b;
+        let a = Math.floor(Math.random() * 10) + 1; // מקדם x
+        let b = Math.floor(Math.random() * 20) - 10; // מספר חופשי (יכול להיות שלילי)
+        let x = Math.floor(Math.random() * 10) - 5; // פתרון אקראי
+        let c = a * x + b; // חישוב הצד הימני של המשוואה
 
-        let equation = `${a}x + ${b} = ${c}`;
+        // קביעת הסימן של b כך שיוצג נכון עם + או -
+        let bFormatted = b >= 0 ? `+ ${b}` : `- ${Math.abs(b)}`;
+
+        let equation = `${a}x ${bFormatted} = ${c}`;
         let solution = x;
 
         exercises.push({ equation, solution });
@@ -26,20 +22,15 @@ function generateExercises() {
         container.innerHTML += `
             <div class="exercise">
                 <p>${equation}</p>
-                <input type="number" class="step1" placeholder="פעולה">
-                <span class="action">/</span>
-                <input type="number" class="step1" placeholder="שני האגפים">
-                <br>
-                <input type="number" class="step2" placeholder="שלב הבא">
-                <span class="action">=</span>
-                <input type="number" class="step2" placeholder="תוצאה">
+                <input type="text" class="step" placeholder="שלב 1">
+                <input type="text" class="step" placeholder="שלב 2">
+                <input type="text" class="step" placeholder="שלב 3">
                 <br>
                 <input type="number" class="answer" placeholder="x = ?">
                 <span class="result"></span>
             </div>
         `;
     }
-    console.log("✅ שלוש משוואות נוצרו בהצלחה!");
 }
 
 function checkAnswers() {
@@ -69,8 +60,4 @@ function showAnswers() {
     }
 }
 
-// הפעלה רק לאחר שהדף נטען במלואו
-document.addEventListener("DOMContentLoaded", function() {
-    console.log("✅ הדף נטען בהצלחה!");
-    generateExercises();
-});
+document.addEventListener("DOMContentLoaded", generateExercises);
