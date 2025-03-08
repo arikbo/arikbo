@@ -1,67 +1,64 @@
-body {
-    font-family: Arial, sans-serif;
-    direction: rtl;
-    text-align: center;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
+let exercises = [];
+
+function generateExercises() {
+    const container = document.getElementById("exercises");
+    container.innerHTML = "";
+    exercises = [];
+
+    for (let i = 0; i < 3; i++) {
+        let a = Math.floor(Math.random() * 10) + 1;
+        let b = Math.floor(Math.random() * 20) - 10;
+        let x = Math.floor(Math.random() * 10) - 5;
+        let c = a * x + b;
+
+        let equation = `${a}x + ${b} = ${c}`;
+        let solution = x;
+
+        exercises.push({ equation, solution });
+
+        container.innerHTML += `
+            <div class="exercise">
+                <p>${equation}</p>
+                <input type="number" class="step1" placeholder="הכנסת פעולה">
+                <span class="action">/</span>
+                <input type="number" class="step1" placeholder="שני האגפים">
+                <br>
+                <input type="number" class="step2" placeholder="שלב הבא">
+                <span class="action">=</span>
+                <input type="number" class="step2" placeholder="תוצאה">
+                <br>
+                <input type="number" class="answer" placeholder="x = ?">
+                <span class="result"></span>
+            </div>
+        `;
+    }
 }
 
-.container {
-    width: 80%;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+function checkAnswers() {
+    let answers = document.getElementsByClassName("answer");
+    let results = document.getElementsByClassName("result");
+
+    for (let i = 0; i < exercises.length; i++) {
+        let userAnswer = parseInt(answers[i].value);
+        if (userAnswer === exercises[i].solution) {
+            results[i].innerHTML = "✅";
+            results[i].style.color = "green";
+        } else {
+            results[i].innerHTML = "❌";
+            results[i].style.color = "red";
+        }
+    }
 }
 
-h1 {
-    color: #007bff;
+function showAnswers() {
+    let answers = document.getElementsByClassName("answer");
+    let results = document.getElementsByClassName("result");
+
+    for (let i = 0; i < exercises.length; i++) {
+        answers[i].value = exercises[i].solution;
+        results[i].innerHTML = "✅";
+        results[i].style.color = "blue";
+    }
 }
 
-p {
-    font-size: 16px;
-}
-
-.exercise {
-    background: #eef;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 5px;
-}
-
-input {
-    width: 60px;
-    text-align: center;
-    font-size: 18px;
-    margin: 5px;
-}
-
-.action {
-    display: inline-block;
-    width: 40px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.result {
-    font-size: 20px;
-    margin-left: 10px;
-}
-
-button {
-    margin: 10px;
-    padding: 10px 15px;
-    font-size: 16px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #0056b3;
-}
+window.onload = generateExercises;
