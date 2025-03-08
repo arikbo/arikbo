@@ -19,7 +19,7 @@ function generateExercises() {
         container.innerHTML += `
             <div class="exercise">
                 <p>${equation}</p>
-                <input type="number" class="step1" placeholder="הכנסת פעולה">
+                <input type="number" class="step1" placeholder="פעולה">
                 <span class="action">/</span>
                 <input type="number" class="step1" placeholder="שני האגפים">
                 <br>
@@ -61,4 +61,5 @@ function showAnswers() {
     }
 }
 
-window.onload = generateExercises;
+// הפעלה רק לאחר שהדף נטען במלואו
+document.addEventListener("DOMContentLoaded", generateExercises);
